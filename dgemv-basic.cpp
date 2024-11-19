@@ -7,15 +7,14 @@ const char* dgemv_desc = "Basic implementation of matrix-vector multiply.";
  * On exit, A and X maintain their input values.
  */
 void my_dgemv(int n, double* A, double* x, double* y) {
-	for (int i = 0; i < n; i++)
+	for (int row = 0; row < n; row++)
 	{
+		int rowOffset = row*n;
 		double sum = 0;
-		for (int j = 0; j < n; j++)
+		for (int col = 0; col < n; col++)
 		{
-			// Assuming A is a row major order array:
-			int idx = (i * n) + j;
-			sum += ( A[idx] * x[j] );
+			sum += A[rowOffset+col] * x[col];
 		}
-		y[i] += sum;
+		y[row] += sum;
 	}
 }
